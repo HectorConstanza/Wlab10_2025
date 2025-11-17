@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
-
+import "../pages/css/home.css"; // ⬅️ IMPORTANTE
 export default function SalesList({ goCreate, goEdit }) {
   const [sales, setSales] = useState([]);
   const [error, setError] = useState("");

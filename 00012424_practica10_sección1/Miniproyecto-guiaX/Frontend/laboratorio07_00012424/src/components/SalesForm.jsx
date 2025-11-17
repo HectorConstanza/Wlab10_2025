@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../utils/api";
-
+import "../pages/css/home.css"; // ⬅️ IMPORTANTE
 export default function CreateSale({ goBack }) {
   const [amount, setAmount] = useState("");
   const [idCustomer, setIdCustomer] = useState("");

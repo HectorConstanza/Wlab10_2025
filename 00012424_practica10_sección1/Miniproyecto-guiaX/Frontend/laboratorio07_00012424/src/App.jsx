@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Login from "./components/login";
+import Login from "./pages/login";
 import Navbar from "./components/navbar";
 
 import CustomerList from "./components/CustomerList";
 import SalesForm from "./components/SalesForm";
 import SalesList from "./components/SalesList";
 import SalesReport from "./components/SalesReport";
-import Home from "./components/home";
+import Home from "./pages/home";
 
 export default function App() {
   const [logged, setLogged] = useState(false);

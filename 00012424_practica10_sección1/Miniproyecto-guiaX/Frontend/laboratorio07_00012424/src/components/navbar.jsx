@@ -1,3 +1,4 @@
+import "../pages/css/home.css"; // ⬅️ IMPORTANTE
 export default function Navbar({ setPage }) {
   const logout = () => {
     localStorage.removeItem("token");

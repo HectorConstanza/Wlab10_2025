@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
+import "../pages/css/home.css"; // ⬅️ IMPORTANTE
 
 export default function CustomerList({ goCreate, goEdit }) {
   const [customers, setCustomers] = useState([]);
@@ -26,6 +27,7 @@ export default function CustomerList({ goCreate, goEdit }) {
 
   return (
     <>
+    
       <h2>Lista de Clientes</h2>
 
       <button onClick={goCreate}>Nuevo Cliente</button>

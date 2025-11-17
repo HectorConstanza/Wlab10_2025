@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
-
+import "../pages/css/home.css"; // ⬅️ IMPORTANTE
 /**
  * SalesReport
  * - Espera que el backend exponga GET /sales/report
