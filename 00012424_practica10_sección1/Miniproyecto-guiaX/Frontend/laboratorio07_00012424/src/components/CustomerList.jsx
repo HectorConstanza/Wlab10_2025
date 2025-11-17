@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
-import "../pages/css/home.css"; // ⬅️ IMPORTANTE
+import "./css/customes.css"; // ⬅️ IMPORTANTE
 
-export default function CustomerList({ goCreate, goEdit }) {
+export default function CustomerList({ goCreate,}) {
   const [customers, setCustomers] = useState([]);
   const [error, setError] = useState("");
+  const [searchCode, setSearchCode] = useState("");
 
   const loadCustomers = () => {
     API.get("/customers")
@@ -16,23 +17,29 @@ export default function CustomerList({ goCreate, goEdit }) {
     loadCustomers();
   }, []);
 
-  const deleteCustomer = async (id) => {
-    if (!confirm("¿Seguro que deseas eliminar este cliente?")) return;
 
-    await API.delete(`/customers/${id}`);
-    loadCustomers();
-  };
+  const filteredCustomers = customers.filter((c) =>
+    c.code?.toLowerCase().includes(searchCode.toLowerCase())
+  );
 
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (error) return <p className="error-msg">{error}</p>;
 
   return (
-    <>
-    
-      <h2>Lista de Clientes</h2>
+    <div className="customer-container">
+      <h2 className="title">Lista de Clientes</h2>
 
-      <button onClick={goCreate}>Nuevo Cliente</button>
+      <div className="actions">
+        <button className="btn-primary" onClick={goCreate}> Nuevo Cliente</button>
+        <input
+          type="text"
+          placeholder="Buscar por código..."
+          value={searchCode}
+          onChange={(e) => setSearchCode(e.target.value)}
+          className="search-input"
+        />
+      </div>
 
-      <table border="1">
+      <table className="styled-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -40,28 +47,26 @@ export default function CustomerList({ goCreate, goEdit }) {
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Código</th>
-            <th>Acciones</th>
           </tr>
         </thead>
-
         <tbody>
-          {customers.map((c) => (
-            <tr key={c.id}>
-              <td>{c.id}</td>
-              <td>{c.name}</td>
-              <td>{c.address}</td>
-              <td>{c.phone}</td>
-              <td>{c.code}</td>
-              <td>
-                <button onClick={() => goEdit(c)}>Editar</button>
-                <button onClick={() => deleteCustomer(c.id)}>Eliminar</button>
-              </td>
+          {filteredCustomers.length > 0 ? (
+            filteredCustomers.map((c) => (
+              <tr key={c.id}>
+                <td>{c.id}</td>
+                <td>{c.name}</td>
+                <td>{c.address}</td>
+                <td>{c.phone}</td>
+                <td>{c.code}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="no-results">No se encontraron clientes con ese código</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
-
-
